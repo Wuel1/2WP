@@ -77,7 +77,22 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
                 Toast.makeText(this, "Frequencia já está em execução", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.Atualizar.setOnClickListener {
+            if(isTimerRunning){
+                listaPareados(bluetoothAdapter)
+            }else{
+                Toast.makeText(this, "Frequência não está em execução", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.listagem.setOnClickListener {
+            startActivity(Intent(this, ListagemActivity::class.java))
+        }
+
     }
+
+
 
     private fun startTimer() {
         timer = TimerHelper(5 * 60 * 1000, 1000, this)
@@ -98,7 +113,6 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
 
     private fun listaPareados(bluetoothAdapter: BluetoothAdapter) {
         binding.listaPareados.text = "\n" // Limpa o Campo
-
         val pareados = if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.BLUETOOTH
@@ -108,38 +122,26 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         } else {
             bluetoothAdapter.bondedDevices
         }
-
         var qt = 0
-        val pairingTimeout = 5 * 60 * 1000
-        val startTime = System.currentTimeMillis()
-
-        for (device in pareados) {
-            if (System.currentTimeMillis() - startTime > pairingTimeout) {
-                Toast.makeText(this, "Tempo limite de pareamento atingido.", Toast.LENGTH_SHORT).show()
-                break
-            }
-
-            val deviceClass = device.bluetoothClass
-            if (deviceClass != null) {
-                val majorDeviceClass = deviceClass.majorDeviceClass
-                // 0x01 -> COMPUTADOR, 0x02 -> TELEFONE CELULAR
-                if (majorDeviceClass == BluetoothClass.Device.Major.COMPUTER ||
-                    majorDeviceClass == BluetoothClass.Device.Major.PHONE
-                ) {
-                    qt += 1
-                    val nomeDispositivo = device.name
-                    //val enderecoDispositivo = device.address
-                    val deviceInfo = "${qt} - ${nomeDispositivo}\n"
-
-                    runOnUiThread {
-                        binding.listaPareados.append(deviceInfo)
+        runOnUiThread {
+            for (device in pareados) {
+                val deviceClass = device.bluetoothClass
+                if (deviceClass != null) {
+                    val majorDeviceClass = deviceClass.majorDeviceClass
+                    if (majorDeviceClass == BluetoothClass.Device.Major.COMPUTER ||
+                        majorDeviceClass == BluetoothClass.Device.Major.PHONE
+                    ) {
+                        qt += 1
+                        val nomeDispositivo = device.name
+                        //val enderecoDispositivo = device.address
+                        val deviceInfo = "\n${qt} Dispositivos Pareados\n"
+                        binding.listaPareados.setText(deviceInfo)
                         binding.listaPareados.invalidate()
                     }
                 }
             }
         }
     }
-
 
     override fun onTick(millisUntilFinished: Long) {
         val minutes = millisUntilFinished / 60000
