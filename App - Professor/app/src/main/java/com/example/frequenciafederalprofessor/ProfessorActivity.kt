@@ -16,11 +16,13 @@ class ProfessorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.nomeProfessor.setText("Wandson Emanuel\nDocente de Computação\nUFRPE | UABJ")
+
         binding.buttonVoltar.setOnClickListener {
             finish()
         }
         binding.buttonCadeiras.setOnClickListener {
-            Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, CadeirasActivity::class.java))
         }
         binding.buttonHorarios.setOnClickListener {
             Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
