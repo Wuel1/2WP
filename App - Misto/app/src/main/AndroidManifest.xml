@@ -39,10 +39,21 @@
             android:exported="false" />
         <activity
             android:name=".AlunoActivity"
-            android:exported="false" />
+            android:exported="false" >
+        </activity>
+        <activity android:name=".Cadeira_Aluno" />
+        />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+        <activity
+            android:name=".Cadastrar"
+            android:exported="false" />
+        <activity android:name=".EsqueceSenha_aluno"
+            android:exported="false"/>
+        <activity android:name=".Horario"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

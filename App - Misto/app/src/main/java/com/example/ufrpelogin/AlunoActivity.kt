@@ -19,10 +19,10 @@ class AlunoActivity : AppCompatActivity() {
             finish()
         }
         binding.buttonCadeiras.setOnClickListener {
-            Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this,Cadeira_Aluno::class.java))
         }
         binding.buttonHorarios.setOnClickListener {
-            Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this,Horario::class.java))
         }
         binding.frequencia.setOnClickListener { // leva para o tela de frequência
             startActivity(Intent(this, FrequenciaActivity::class.java))

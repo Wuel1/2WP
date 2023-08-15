@@ -119,8 +119,27 @@
             android:text="Entrar"
             android:textColor="@color/white" />
 
+        <Button
+            android:id="@+id/Esqueci"
+            android:layout_width="141dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@drawable/bg_btn"
+            android:text="Esqueci senha"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/CADASTAR"
+            android:layout_width="141dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:background="@drawable/bg_btn"
+            android:text="Cadastrar"
+            android:textColor="@color/white" />
+
 
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

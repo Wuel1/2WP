@@ -34,11 +34,13 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
     val sql = arrayOf(
         "CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, mac TEXT, mac_2 TEXT, mac_3 TEXT)" ,
         "INSERT INTO professor (username,password,mac) VALUES ('waldemar.neto','12345','00:45:E2:6A:46:3C')" ,
-
-
         "CREATE TABLE alunos (Id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, mac TEXT, mac_2 TEXT, mac_3 TEXT)",
-        "INSERT INTO alunos (username,password,mac) VALUES ('wandson.emanuel','12345','4c:63:71:88:bb:0a')"
+        "INSERT INTO alunos (username,password,mac) VALUES ('wandson.emanuel','12345','4c:63:71:88:bb:0a')",
+        "INSERT INTO alunos (username,password,mac) VALUES ('PedroHenrique','12345','4c:63:71:88:bb:0a')",
+        "CREATE TABLE HORÁRIOS (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, mac TEXT, mac_2 TEXT, mac_3 TEXT)" ,
+        "INSERT INTO HORÁRIOS(Matéria, horário,prova,mac ) Values ('Algoritmo',16:00,''00:45:E2:6A:46:3C')"
     )
+
 
     override fun onCreate(db: SQLiteDatabase) {
         sql.forEach {

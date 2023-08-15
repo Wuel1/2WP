@@ -19,6 +19,13 @@ class MainActivity : AppCompatActivity() {
         binding.buttonEntrar.setOnClickListener {
             conferir()
         }
+        binding.CADASTAR.setOnClickListener {
+            abrirTelaCadastro()
+        }
+        binding.Esqueci.setOnClickListener{
+            telaESqueci()
+        }
+
     }
 
     private fun conferir() {
@@ -37,9 +44,17 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Professor Confirmado!", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, ProfessorActivity::class.java))
             } else {
-                Toast.makeText(applicationContext, "Usuário não encontrado, tente novamente.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Usuário não encontrado, talvez você errou a senha.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+    private fun abrirTelaCadastro() {
+        val intent = Intent(this, Cadastrar::class.java)
+        startActivity(intent)
+    }
+    private fun telaESqueci(){
+        val intent = Intent(this,EsqueceSenha_aluno::class.java )
+        startActivity(intent)
     }
 
 }

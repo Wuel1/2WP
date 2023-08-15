@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,25 +19,51 @@ import java.util.Date
 
 class FrequenciaActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityFrequenciaAlunoBinding
-    lateinit var bluetoothAdapter: BluetoothAdapter
+        private lateinit var binding: ActivityFrequenciaAlunoBinding
+        private lateinit var bluetoothAdapter: BluetoothAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        binding =  ActivityFrequenciaAlunoBinding.inflate(layoutInflater)
-        val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
-        bluetoothAdapter = bluetoothManager.adapter
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            binding = ActivityFrequenciaAlunoBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-        binding.buttonVoltar.setOnClickListener {
-            finish()
+            val bluetoothManager = getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
+            bluetoothAdapter = bluetoothManager.adapter
+
+            binding.buttonVoltar.setOnClickListener {
+                finish()
+            }
+
+            binding.confirmButton.setOnClickListener {
+                toggleBluetooth()
+            }
         }
 
-        binding.confirmButton.setOnClickListener { // Botão para confirmar o login
-            confirmarHost(bluetoothAdapter)
+        private fun toggleBluetooth() {
+            if (!bluetoothAdapter.isEnabled) {
+                val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+            } else {
+                Toast.makeText(this, "Bluetooth já está ligado.", Toast.LENGTH_SHORT).show()
+            }
         }
 
-    }
+        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
+            if (requestCode == REQUEST_ENABLE_BT) {
+                if (resultCode == RESULT_OK) {
+                    confirmarHost(bluetoothAdapter)
+                } else {
+                    Toast.makeText(this, "Bluetooth não foi ativado.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+
+
+        companion object {
+            private const val REQUEST_ENABLE_BT = 1
+        }
 
     fun listaPareados(bluetoothAdapter: BluetoothAdapter): Set<BluetoothDevice> {
         val pareados = if (ActivityCompat.checkSelfPermission(
@@ -51,14 +78,30 @@ class FrequenciaActivity : AppCompatActivity() {
         return pareados
     }
 
-    private fun confirmarHost(bluetoothAdapter: BluetoothAdapter){
-        val pareados = (listaPareados(bluetoothAdapter))
+
+    private fun confirmarHost(bluetoothAdapter: BluetoothAdapter) {
+        val pareados = listaPareados(bluetoothAdapter)
         val dbHelper = DBHelper(this)
-        for(dispositivo in pareados){
-            if(dbHelper.isProfessorMac(dispositivo.address.toString())){ //Verifica com MAC do Host
+
+        for (dispositivo in pareados) {
+            if (dbHelper.isProfessorMac(dispositivo.address.toString())) { //Verifica com MAC do Host
                 Toast.makeText(this, "Pareamento com Host Confirmado", Toast.LENGTH_SHORT).show()
+                if (ActivityCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.BLUETOOTH_CONNECT
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return
+                }
                 dbHelper.inserirFrequencia(obterNomeTabelaFrequencia(), dispositivo.name, dispositivo.address)
-                binding.status.setText("Frequência Realizada")
+                binding.status.setText("Frequência Realizada com Sucesso") // Atualiza o TextView
                 binding.confirmButton.setBackgroundResource(R.drawable.baseline_bluetooth_connected_24_white)
                 binding.status.setBackgroundResource(R.drawable.bg_btn_blue)
                 return
@@ -67,6 +110,7 @@ class FrequenciaActivity : AppCompatActivity() {
         Toast.makeText(this, "Pareamento com Host não identificado", Toast.LENGTH_SHORT).show()
     }
 
+
     fun obterNomeTabelaFrequencia(): String {
         val formatoData = SimpleDateFormat("yyyyMMdd_HHmmss") // Define o formato desejado da data
         val dataAtual = Date()
@@ -74,3 +118,12 @@ class FrequenciaActivity : AppCompatActivity() {
         return "frequencia_$dataFormatada"
     }
 }
+
+
+
+
+
+
+
+
+
