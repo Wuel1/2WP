@@ -25,7 +25,15 @@ class MainActivity : AppCompatActivity() {
         binding.Esqueci.setOnClickListener{
             telaESqueci()
         }
+        binding.Bancodados.setOnClickListener{
+            telaBancodados()
+        }
 
+    }
+
+    private fun telaBancodados() {
+        val intent = Intent(this,Cadastrar_bancodados::class.java)
+        startActivity(intent)
     }
 
     private fun conferir() {

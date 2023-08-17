@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -28,15 +27,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:layout_marginEnd="8dp"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="161dp">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp">
 
         <EditText
-            android:id="@+id/editTextName"
+            android:id="@+id/editTextNameBanco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -44,7 +44,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/editTextMatricula"
+            android:id="@+id/editTextMatriculaBanco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -52,7 +52,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/editTextEmail"
+            android:id="@+id/editTextEmailBanco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -60,7 +60,7 @@
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/editTextSenha"
+            android:id="@+id/editTextSenhaBanco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -68,7 +68,7 @@
             android:inputType="textPassword" />
 
         <EditText
-            android:id="@+id/editTextMAC"
+            android:id="@+id/editTextMACBanco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -76,11 +76,16 @@
             android:inputType="text" />
 
         <Button
-            android:id="@+id/buttonCadastrar"
+            android:id="@+id/buttonCadastrarBanco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Cadastrar" />
+            android:text="Banco de dados" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Cadastrados"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

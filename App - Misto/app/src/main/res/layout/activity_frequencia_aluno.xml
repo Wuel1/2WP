@@ -21,7 +21,6 @@
             android:layout_marginLeft="20dp"
             android:src="@drawable/baseline_arrow_back_ios_new_24" />
 
-
         <ImageView
             android:layout_width="100dp"
             android:layout_height="60dp"
@@ -38,6 +37,7 @@
         android:layout_gravity="center"
         android:orientation="horizontal">
 
+        <!-- Botão para ligar/desligar Bluetooth -->
     </LinearLayout>
 
     <LinearLayout
@@ -56,6 +56,13 @@
             android:background="@drawable/baseline_bluetooth_connected_24_white"
             android:gravity="center"
             android:padding="10dp" />
+
+        <Button
+            android:id="@+id/buttonToggleBluetooth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ligar/Desligar Bluetooth" />
+
 
     </LinearLayout>
 
@@ -76,5 +83,7 @@
             android:textColor="@color/white" />
 
     </LinearLayout>
+
+
 
 </LinearLayout>
