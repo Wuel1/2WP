@@ -1,4 +1,4 @@
-package com.example.frequenciafederalprofessor
+package com.example.frequenciafederalprofessor.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +15,8 @@ class ProfessorActivity : AppCompatActivity() {
         binding = ActivityProfessorBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        binding.nomeProfessor.setText("Wandson Emanuel\nDocente de Computação\nUFRPE | UABJ")
 
         binding.buttonVoltar.setOnClickListener {
             finish()

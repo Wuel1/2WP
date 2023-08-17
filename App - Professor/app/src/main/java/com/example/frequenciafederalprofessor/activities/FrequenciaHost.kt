@@ -1,4 +1,4 @@
-package com.example.frequenciafederalprofessor
+package com.example.frequenciafederalprofessor.activities
 
 import com.example.frequenciafederalprofessor.db.DBHelper
 import android.Manifest
@@ -13,7 +13,10 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.example.frequenciafederalprofessor.R
+import com.example.frequenciafederalprofessor.adapters.TimerHelper
 import com.example.frequenciafederalprofessor.databinding.ActivityFrequenciaHostBinding
+import com.google.firebase.database.DatabaseReference
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -22,6 +25,7 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
     lateinit var binding: ActivityFrequenciaHostBinding
     lateinit var bluetoothAdapter: BluetoothAdapter
     lateinit var timer: TimerHelper
+    private lateinit var dbRef: DatabaseReference
     var isTimerRunning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,8 +96,6 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
 
     }
 
-
-
     private fun startTimer() {
         timer = TimerHelper(5 * 60 * 1000, 1000, this)
         timer.start()
@@ -133,8 +135,8 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
                     ) {
                         qt += 1
                         val nomeDispositivo = device.name
-                        //val enderecoDispositivo = device.address
-                        val deviceInfo = "\n${qt} Dispositivos Pareados\n"
+                        val enderecoDispositivo = device.address
+                        val deviceInfo = "${qt} Dispositivos Pareados"
                         binding.listaPareados.setText(deviceInfo)
                         binding.listaPareados.invalidate()
                     }
@@ -165,5 +167,6 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         val dataFormatada = formatoData.format(dataAtual)
         return "frequencia_$dataFormatada"
     }
+
 
 }
