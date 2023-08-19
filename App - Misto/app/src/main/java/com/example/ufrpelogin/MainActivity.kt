@@ -3,10 +3,12 @@ package com.example.ufrpelogin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.example.ufrpelogin.databinding.ActivityMainBinding
 import com.example.ufrpelogin.db.DBHelper
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -18,12 +20,6 @@ class MainActivity : AppCompatActivity() {
         binding =  ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val firabase = Firebase.auth
-        val tarefa  =
-            firabase.createUserWithEmailAndPassword("pedro.henrique@ufrpe.com.br", "teste1234")
-        tarefa.addOnSuccessListener {
-            Toast.makeText(this, "Usuário cadastrado ", Toast.LENGTH_SHORT).show()
-        }
 
         binding.buttonEntrar.setOnClickListener {
             conferir()
@@ -39,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
 
 
     private fun conferir() {
@@ -76,3 +71,5 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+

@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import androidx.core.content.contentValuesOf
+import androidx.lifecycle.viewmodel.viewModelFactory
 
 class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.db",null,1) {
 
@@ -210,5 +211,6 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         db.close()
         return listaProfessor
    }
+
 
 }

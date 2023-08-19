@@ -36,31 +36,19 @@
         tools:layout_editor_absoluteX="8dp">
 
         <EditText
-            android:id="@+id/editTextNameBanco"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Nome"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/editTextMatriculaBanco"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Matrícula"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/editTextEmailBanco"
+            android:id="@+id/emailBanco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="Email"
-            android:inputType="textEmailAddress" />
+            android:inputType="text" />
+
+
+
+        >
 
         <EditText
-            android:id="@+id/editTextSenhaBanco"
+            android:id="@+id/SenhaBanco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -68,11 +56,11 @@
             android:inputType="textPassword" />
 
         <EditText
-            android:id="@+id/editTextMACBanco"
+            android:id="@+id/editTextconfirmasenhaBanco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="MAC"
+            android:hint="Digte a senha novamente "
             android:inputType="text" />
 
         <Button
@@ -85,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Cadastrados"/>
+            android:text="Cadastrar"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
