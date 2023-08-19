@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "368242283990",
+    "project_id": "bancodedados2wp",
+    "storage_bucket": "bancodedados2wp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368242283990:android:b172a0c16d924aceb40077",
+        "android_client_info": {
+          "package_name": "com.example.ufrpelogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368242283990-v0m6frih1k0ui5669r3emd188ee8v1jj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfYzlv3e3yFqS-o_TQKvFJ-ebS94x7_tQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368242283990-v0m6frih1k0ui5669r3emd188ee8v1jj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

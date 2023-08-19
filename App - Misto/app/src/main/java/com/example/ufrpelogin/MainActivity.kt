@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.ufrpelogin.databinding.ActivityMainBinding
 import com.example.ufrpelogin.db.DBHelper
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         binding =  ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        FirebaseAuth
 
         binding.buttonEntrar.setOnClickListener {
             conferir()
