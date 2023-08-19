@@ -7,6 +7,8 @@ import android.widget.Toast
 import com.example.ufrpelogin.databinding.ActivityMainBinding
 import com.example.ufrpelogin.db.DBHelper
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +18,8 @@ class MainActivity : AppCompatActivity() {
         binding =  ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        FirebaseAuth
+        val firabase = Firebase.auth
+        firabase.createUserWithEmailAndPassword("pedro.henrique@ufrpe.com.br", "teste1234")
 
         binding.buttonEntrar.setOnClickListener {
             conferir()
@@ -33,10 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun telaBancodados() {
-        val intent = Intent(this,Cadastrar_bancodados::class.java)
-        startActivity(intent)
-    }
+
 
     private fun conferir() {
 
@@ -64,6 +64,10 @@ class MainActivity : AppCompatActivity() {
     }
     private fun telaESqueci(){
         val intent = Intent(this,EsqueceSenha_aluno::class.java )
+        startActivity(intent)
+    }
+    private fun telaBancodados() {
+        val intent = Intent(this,Cadastrar_bancodados::class.java)
         startActivity(intent)
     }
 

@@ -53,6 +53,8 @@
             android:exported="false"/>
         <activity android:name=".Horario"
             android:exported="false"/>
+        <activity android:name=".Cadastrar_bancodados"
+            android:exported="false" />
 
     </application>
 
