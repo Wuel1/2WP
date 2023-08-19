@@ -39,7 +39,13 @@ class FrequenciaActivity : AppCompatActivity() {
         }
 
         binding.buttonToggleBluetooth.setOnClickListener {
-            toggleBluetooth()
+            try {
+                toggleBluetooth()
+
+            } catch (e:Exception){
+                Toast.makeText(this, "Permita o acesso ao blueettoth",Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         binding.confirmButton.setOnClickListener {

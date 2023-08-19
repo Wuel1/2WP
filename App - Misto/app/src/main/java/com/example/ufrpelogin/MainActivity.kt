@@ -19,7 +19,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         val firabase = Firebase.auth
-        firabase.createUserWithEmailAndPassword("pedro.henrique@ufrpe.com.br", "teste1234")
+        val tarefa  =
+            firabase.createUserWithEmailAndPassword("pedro.henrique@ufrpe.com.br", "teste1234")
+        tarefa.addOnSuccessListener {
+            Toast.makeText(this, "Usuário cadastrado ", Toast.LENGTH_SHORT).show()
+        }
 
         binding.buttonEntrar.setOnClickListener {
             conferir()
