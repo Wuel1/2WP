@@ -1,12 +1,14 @@
-package com.example.ufrpelogin.viewmdeol
+package com.example.ufrpelogin.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.ufrpelogin.FirebaseAuthRespository
+import com.example.ufrpelogin.FirebaseAuthRepository
 
-class CadastroUsuarioViewmodel(private val respository: FirebaseAuthRespository) : ViewModel() {
-    fun cadastra(email : String, senha : String ){
-        respository.cadastra(email,senha )
+class CadastroUsuarioViewModel(private val repository: FirebaseAuthRepository) : ViewModel() {
+
+    fun cadastra(email: String, senha: String) {
+        repository.cadastra(email, senha)
     }
-
-
 }
+
+
+
