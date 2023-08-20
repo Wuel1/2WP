@@ -21,7 +21,6 @@ class Cadastrar_bancodados : AppCompatActivity() {
         viewModel = CadastroUsuarioViewModel(firebaseAuthRepository)
 
         binding.buttonCadastrarBanco.setOnClickListener {
-
             val email = binding.emailBanco.text.toString()
             val senha = binding.SenhaBanco.text.toString()
             viewModel.cadastra(email, senha)
