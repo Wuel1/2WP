@@ -1,6 +1,7 @@
 package com.example.frequenciafederalprofessor.activities
 
 import android.R
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -22,12 +23,16 @@ class CadeirasActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityCadeirasBinding.inflate(layoutInflater)
-        val database = FirebaseDatabase.getInstance()
-        dbRef = database.getReference("PROFESSOR")
+        val database =  FirebaseDatabase.getInstance()
+        dbRef = database.getReference("FREQUENCIA")
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         list()
+
+        binding.addTurma.setOnClickListener {
+            startActivity(Intent(this,AddCadeiraActivity::class.java))
+        }
 
         binding.buttonVoltar.setOnClickListener {
             finish() // Voltar
@@ -40,13 +45,12 @@ class CadeirasActivity : AppCompatActivity() {
         val professorId = "Wandson"
         val anoLetivo = "2022-2"
 
-        val professorRef = dbRef.child("FREQUENCIA").child(professorId)
+        val professorRef = dbRef.child(professorId)
         val anoLetivoRef = professorRef.child(anoLetivo)
         anoLetivoRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // Aqui você pode acessar os dados lidos do banco de dados
                 for (disciplinaSnapshot in dataSnapshot.children) {
-                    val disciplinaNome = disciplinaSnapshot.value.toString()
+                    val disciplinaNome = disciplinaSnapshot.key.toString()
                     disciplinasList.add(disciplinaNome!!)
                 }
                 callback(disciplinasList.toTypedArray())
@@ -70,4 +74,5 @@ class CadeirasActivity : AppCompatActivity() {
             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
         }
     }
+
 }

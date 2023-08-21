@@ -10,13 +10,19 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.Settings
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.frequenciafederalprofessor.R
 import com.example.frequenciafederalprofessor.adapters.TimerHelper
 import com.example.frequenciafederalprofessor.databinding.ActivityFrequenciaHostBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -30,11 +36,14 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val database =  FirebaseDatabase.getInstance()
+        dbRef = database.getReference("FREQUENCIA")
         binding = ActivityFrequenciaHostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothAdapter = bluetoothManager.adapter
+
 
         // Conferindo se pode se conseguir acesso ao Bluetooth
         conferir(bluetoothManager, bluetoothAdapter)
@@ -72,10 +81,6 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
                     putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300)
                 }
                 startActivity(discoverableIntent)
-                // Chama a função para criar a tabela de frequência
-                val nomeTabelaFrequencia = obterNomeTabelaFrequencia() // Defina um nome adequado para a tabela de frequência
-                val dbHelper = DBHelper(this)
-                dbHelper.criarTabelaFrequencia(nomeTabelaFrequencia)
                 listaPareados(bluetoothAdapter)
             } else{
                 Toast.makeText(this, "Frequencia já está em execução", Toast.LENGTH_SHORT).show()
@@ -161,12 +166,24 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         isTimerRunning = false
     }
 
-    fun obterNomeTabelaFrequencia(): String {
-        val formatoData = SimpleDateFormat("yyyyMMdd_HHmmss") // Define o formato desejado da data
-        val dataAtual = Date()
-        val dataFormatada = formatoData.format(dataAtual)
-        return "frequencia_$dataFormatada"
+    fun saveSharedPref(nome: String){
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)?: return
+        with(sharedPref.edit()){
+            putString("Cadeiras",nome)
+            apply()
+        }
     }
 
+    fun getSharedPref(): String?{
+        val SharedPref = getPreferences(Context.MODE_PRIVATE)
+        return SharedPref.getString("Cadeiras", null)
+    }
 
 }
+
+//    fun obterNomeTabelaFrequencia(): String {
+//        val formatoData = SimpleDateFormat("yyyyMMdd_HHmmss") // Define o formato desejado da data
+//        val dataAtual = Date()
+//        val dataFormatada = formatoData.format(dataAtual)
+//        return "frequencia_$dataFormatada"
+//    }
