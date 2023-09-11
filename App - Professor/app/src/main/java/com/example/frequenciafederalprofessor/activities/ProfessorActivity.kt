@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.frequenciafederalprofessor.databinding.ActivityProfessorBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -21,33 +22,18 @@ class ProfessorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfessorBinding
     private lateinit var dbRef: DatabaseReference
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityProfessorBinding.inflate(layoutInflater)
         val database =  FirebaseDatabase.getInstance()
         dbRef = database.getReference("FREQUENCIA")
+        val user = FirebaseAuth.getInstance().currentUser
+        val username = user?.displayName.toString()
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        try {
-            list()
-            binding.periodoLetivo.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    // A ação que você deseja executar quando uma opção for selecionada
-                    val selectedItem = binding.periodoLetivo.selectedItem.toString()
-                    // Faça algo com a opção selecionada, como exibir em um Toast
-                    Toast.makeText(applicationContext, "Selecionado: $selectedItem", Toast.LENGTH_SHORT).show()
-                }
+//        conectaPeriodo()
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    Toast.makeText(applicationContext, "Error, nenhum período identificado", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }catch (e: Exception){
-            Toast.makeText(this,"${e}",Toast.LENGTH_SHORT).show()
-        }
-
-        binding.nomeProfessor.setText("Wandson Emanuel\nDocente de Computação\nUFRPE | UABJ")
+        binding.nomeProfessor.setText("${username}\nDocente de Computação\nUFRPE | UABJ")
 
         binding.buttonVoltar.setOnClickListener {
             finish()
@@ -66,36 +52,69 @@ class ProfessorActivity : AppCompatActivity() {
         }
     }
 
-    fun listagem(callback: (Array<String>) -> Unit) {
-        val disciplinasList = mutableListOf<String>()
-        val professorId = "Wandson"
+//    private fun conectaPeriodo() {
+//        try {
+//            list()
+//            binding.periodoLetivo.onItemSelectedListener =
+//                object : AdapterView.OnItemSelectedListener {
+//                    override fun onItemSelected(
+//                        parent: AdapterView<*>?,
+//                        view: View?,
+//                        position: Int,
+//                        id: Long
+//                    ) {
+//                        val selectedItem = binding.periodoLetivo.selectedItem.toString()
+//                        Toast.makeText(
+//                            applicationContext,
+//                            "Selecionado: $selectedItem",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//
+//                    override fun onNothingSelected(parent: AdapterView<*>?) {
+//                        Toast.makeText(
+//                            applicationContext,
+//                            "Error, nenhum período identificado",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                }
+//        } catch (e: Exception) {
+//            Toast.makeText(this, "${e}", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
-        val professorRef = dbRef.child(professorId)
-        professorRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (disciplinaSnapshot in dataSnapshot.children) {
-                    val disciplinaNome = disciplinaSnapshot.key.toString()
-                    disciplinasList.add(disciplinaNome!!)
-                }
-                callback(disciplinasList.toTypedArray())
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(this@ProfessorActivity, "${databaseError.message}", Toast.LENGTH_SHORT).show()
-                callback(emptyArray())
-            }
-        })
-    }
-
-    fun list(){
-        try {
-            listagem { disciplinasArray ->
-                val adapter = ArrayAdapter(this,
-                    R.layout.simple_list_item_1, disciplinasArray)
-                binding.periodoLetivo.adapter = adapter
-            }
-        } catch (e: Exception) {
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
-        }
-    }
+//    fun listagem(callback: (Array<String>) -> Unit) {
+//        val user = FirebaseAuth.getInstance().currentUser
+//        val username = user?.displayName.toString()
+//        val periodosList = mutableListOf<String>()
+//
+//        val professorRef = dbRef.child(username)
+//        professorRef.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                for (disciplinaSnapshot in dataSnapshot.children) {
+//                    val disciplinaNome = disciplinaSnapshot.key.toString()
+//                    periodosList.add(disciplinaNome!!)
+//                }
+//                callback(periodosList.toTypedArray())
+//            }
+//
+//            override fun onCancelled(databaseError: DatabaseError) {
+//                Toast.makeText(this@ProfessorActivity, "${databaseError.message}", Toast.LENGTH_SHORT).show()
+//                callback(emptyArray())
+//            }
+//        })
+//    }
+//
+//    fun list(){
+//        try {
+//            listagem { disciplinasArray ->
+//                val adapter = ArrayAdapter(this,
+//                    R.layout.simple_list_item_1, disciplinasArray)
+//                binding.periodoLetivo.adapter = adapter
+//            }
+//        } catch (e: Exception) {
+//            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 }
